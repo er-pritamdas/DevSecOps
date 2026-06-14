@@ -85,6 +85,47 @@
   - [Show Files Changed Per Commit (`git log --stat`)](#show-files-changed-per-commit-git-log---stat)
   - [Show a Branch Graph (`git log --graph`)](#show-a-branch-graph-git-log---graph)
   - [Troubleshooting](#troubleshooting-5)
+- [Git Help](#git-help)
+  - [Why and When to Use Git Help?](#why-and-when-to-use-git-help)
+  - [See Help for a Specific Command (`git help <command>`)](#see-help-for-a-specific-command-git-help-command)
+  - [See Help with `--help` (`git <command> --help`)](#see-help-with---help-git-command---help)
+  - [See a Quick Summary with `-h` (`git <command> -h`)](#see-a-quick-summary-with--h-git-command--h)
+  - [List All Git Commands (`git help --all`)](#list-all-git-commands-git-help---all)
+  - [List Guides and Concepts (`git help -g`)](#list-guides-and-concepts-git-help--g)
+  - [Troubleshooting](#troubleshooting-6)
+- [Git Branch](#git-branch)
+  - [What is a Git Branch?](#what-is-a-git-branch)
+  - [Creating a New Branch](#creating-a-new-branch)
+  - [Listing All Branches](#listing-all-branches)
+  - [Switching Between Branches](#switching-between-branches)
+  - [Working in a Branch](#working-in-a-branch)
+  - [Emergency Branch](#emergency-branch)
+  - [Deleting a Branch](#deleting-a-branch)
+  - [Best Practices for Working with Branches](#best-practices-for-working-with-branches)
+  - [Practical Examples](#practical-examples)
+  - [Troubleshooting](#troubleshooting-7)
+- [Git Branch Merge](#git-branch-merge)
+  - [What is Merging in Git?](#what-is-merging-in-git)
+  - [Merging Branches (`git merge`)](#merging-branches-git-merge)
+  - [Non-Fast-Forward Merge (`git merge --no-ff`)](#non-fast-forward-merge-git-merge---no-ff)
+  - [Squash Merge (`git merge --squash`)](#squash-merge-git-merge---squash)
+  - [Aborting a Merge (`git merge --abort`)](#aborting-a-merge-git-merge---abort)
+  - [What is a Merge Conflict?](#what-is-a-merge-conflict)
+  - [Merge Conflict Example](#merge-conflict-example)
+  - [Best Practices for Merging Branches](#best-practices-for-merging-branches)
+  - [Practical Examples](#practical-examples-1)
+  - [Troubleshooting & Tips](#troubleshooting--tips)
+- [Git Workflow](#git-workflow)
+  - [Git Workflow Commands Overview](#git-workflow-commands-overview)
+  - [Understanding the Git Workflow](#understanding-the-git-workflow)
+  - [Working Directory](#working-directory)
+  - [Staging Changes (`git add`)](#staging-changes-git-add)
+  - [Committing Changes (`git commit`)](#committing-changes-git-commit)
+  - [Pushing Changes (`git push`)](#pushing-changes-git-push)
+  - [Checking Status (`git status`)](#checking-status-git-status)
+  - [Undoing and Amending Changes](#undoing-and-amending-changes)
+  - [Best Practices for Git Workflow](#best-practices-for-git-workflow)
+  - [Tips & Troubleshooting](#tips--troubleshooting)
 
 ---
 
@@ -752,7 +793,7 @@ Now `index.html` is no longer staged.
 | `git add -A` | Stage all changes (equivalent to `git add --all`) |
 | `git status` | Check which files are staged, modified, or untracked |
 | `git restore --staged <file>` | Unstage a file, removing it from the staging area (e.g. `git restore --staged index.html`) |
-| `git reset HEAD <file>` | Unstage a file (alternative to `git restore --staged, e.g. `git reset HEAD index.html`) |
+| `git reset HEAD <file>` | Unstage a file (alternative to `git restore --staged`, e.g. `git reset HEAD index.html`) |
 
 ---
 
@@ -1554,3 +1595,1072 @@ This command shows a simple graph of your branch and merge history.
 | `git log --since="<time-frame>"` | Filter commit history to show commits since a specific time frame (e.g. `2 weeks ago`) |
 | `git log --stat` | Show commit history with file change and insertion/deletion statistics |
 | `git log --graph` / `git log --graph --oneline` | Show commit history with an ASCII graph representing branch/merge structure |
+
+---
+
+# Git Help
+
+## Why and When to Use Git Help?
+
+Git has many commands and options.
+
+If you forget how a command works or want to learn about its options, you can use Git's built-in help. This is the fastest way to get answers without leaving your terminal.
+
+### Key Commands for Getting Help
+* `git help <command>` - See the manual page for a command
+* `git <command> --help` - See help for a command (same as above)
+* `git <command> -h` - See a quick summary of options
+* `git help --all` - List all possible Git commands
+* `git help -g` - List guides and concepts
+
+## See Help for a Specific Command (`git help <command>`)
+
+Shows the full manual page for a specific command, including all options and examples:
+
+### Example: See Help for Commit
+```bash
+git help commit
+```
+**Output:**
+```text
+GIT-COMMIT(1)
+NAME
+    git-commit - Record changes to the repository
+SYNOPSIS
+    git commit [options] [--] ...
+DESCRIPTION
+    Stores the current contents of the index in a new commit
+    together with a log message from the user describing the changes.
+...
+```
+This command opens the full documentation for `git commit` in your terminal.
+
+> [!TIP]
+> **Tip: While viewing help pages:**
+> * Use the arrow keys or Space to scroll down, `b` to scroll up.
+> * Type `/` followed by a word to search (e.g., `/option`), then `n` for the next match.
+> * Press `q` at any time to quit the help view.
+
+## See Help with `--help` (`git <command> --help`)
+
+This does the same as `git help <command>`. Most users prefer this form:
+
+### Example: See Help for Status
+```bash
+git status --help
+```
+**Output:**
+```text
+GIT-STATUS(1)
+NAME
+    git-status - Show the working tree status
+SYNOPSIS
+    git status [options] [--] [pathspec...]
+DESCRIPTION
+    Displays paths that have differences between the index file and the current HEAD commit.
+...
+```
+This command opens the manual page for `git status`.
+
+## See a Quick Summary with `-h` (`git <command> -h`)
+
+Shows a short summary of the command's options, right in the terminal window (does not open the full manual):
+
+### Example: Quick Help for Add
+```bash
+git add -h
+```
+**Output:**
+```text
+usage: git add [options] [--] ...
+    -n, --dry-run         dry run
+    -v, --verbose        be verbose
+    -i, --interactive    interactive picking
+    -p, --patch          select hunks interactively
+    -e, --edit           edit current diff and apply
+    -u, --update         update tracked files
+    -A, --all            add changes from all tracked and untracked files
+...
+```
+This command gives you a brief overview of available options for a command.
+
+## List All Git Commands (`git help --all`)
+
+Lists every Git command available on your system, grouped by category:
+
+> [!WARNING]
+> **Warning:** This will display a very long list of commands.
+
+### Example
+```bash
+git help --all
+```
+**Output:**
+```text
+See 'git help ' to read about a specific subcommand
+
+Main Porcelain Commands
+   add                  Add file contents to the index
+   am                   Apply a series of patches from a mailbox
+   archive              Create an archive of files from a named tree
+   bisect               Use binary search to find the commit that introduced a bug
+   branch               List, create, or delete branches
+   bundle               Move objects and refs by archive
+   checkout             Switch branches or restore working tree files
+   cherry-pick          Apply the changes introduced by some existing commits
+   citool               Graphical alternative to git-commit
+   clean                Remove untracked files from the working tree
+   clone                Clone a repository into a new directory
+   commit               Record changes to the repository
+   describe             Give an object a human readable name based on an available ref
+   diff                 Show changes between commits, commit and working tree, etc
+   fetch                Download objects and refs from another repository
+   format-patch         Prepare patches for e-mail submission
+   gc                   Cleanup unnecessary files and optimize the local repository
+   gitk                 The Git repository browser
+   grep                 Print lines matching a pattern
+   gui                  A portable graphical interface to Git
+   init                 Create an empty Git repository or reinitialize an existing one
+   log                  Show commit logs
+   maintenance          Run tasks to optimize Git repository data
+   merge                Join two or more development histories together
+   mv                   Move or rename a file, a directory, or a symlink
+   notes                Add or inspect object notes
+   pull                 Fetch from and integrate with another repository or a local branch
+   push                 Update remote refs along with associated objects
+   range-diff           Compare two commit ranges (e.g. two versions of a branch)
+   rebase               Reapply commits on top of another base tip
+   reset                Reset current HEAD to the specified state
+   restore              Restore working tree files
+   revert               Revert some existing commits
+   rm                   Remove files from the working tree and from the index
+   shortlog             Summarize 'git log' output
+   show                 Show various types of objects
+   sparse-checkout      Initialize and modify the sparse-checkout
+   stash                Stash the changes in a dirty working directory away
+   status               Show the working tree status
+   submodule            Initialize, update or inspect submodules
+   switch               Switch branches
+   tag                  Create, list, delete or verify a tag object signed with GPG
+   worktree             Manage multiple working trees
+
+Ancillary Commands / Manipulators
+   config               Get and set repository or global options
+   fast-export          Git data exporter
+   fast-import          Backend for fast Git data importers
+   filter-branch        Rewrite branches
+   mergetool            Run merge conflict resolution tools to resolve merge conflicts
+   pack-refs            Pack heads and tags for efficient repository access
+   prune                Prune all unreachable objects from the object database
+   reflog               Manage reflog information
+   remote               Manage set of tracked repositories
+   repack               Pack unpacked objects in a repository
+   replace              Create, list, delete refs to replace objects
+
+Ancillary Commands / Interrogators
+   annotate             Annotate file lines with commit information
+   blame                Show what revision and author last modified each line of a file
+   bugreport            Collect information for user to file a bug report
+   count-objects        Count unpacked number of objects and their disk consumption
+   difftool             Show changes using common diff tools
+   fsck                 Verifies the connectivity and validity of the objects in the database
+   gitweb               Git web interface (web frontend to Git repositories)
+   help                 Display help information about Git
+   instaweb             Instantly browse your working repository in gitweb
+   merge-tree           Show three-way merge without touching index
+   rerere               Reuse recorded resolution of conflicted merges
+   show-branch          Show branches and their commits
+   verify-commit        Check the GPG signature of commits
+   verify-tag           Check the GPG signature of tags
+   whatchanged          Show logs with difference each commit introduces
+
+Interacting with Others
+   archimport           Import a GNU Arch repository into Git
+   cvsexportcommit      Export a single commit to a CVS checkout
+   cvsimport            Salvage your data out of another SCM people love to hate
+   cvsserver            A CVS server emulator for Git
+   imap-send            Send a collection of patches from stdin to an IMAP folder
+   p4                   Import from and submit to Perforce repositories
+   quiltimport          Applies a quilt patchset onto the current branch
+   request-pull         Generates a summary of pending changes
+   send-email           Send a collection of patches as emails
+   svn                  Bidirectional operation between a Subversion repository and Git
+
+Low-level Commands / Manipulators
+   apply                Apply a patch to files and/or to the index
+   checkout-index       Copy files from the index to the working tree
+   commit-graph         Write and verify Git commit-graph files
+   commit-tree          Create a new commit object
+   hash-object          Compute object ID and optionally creates a blob from a file
+   index-pack           Build pack index file for an existing packed archive
+   merge-file           Run a three-way file merge
+   merge-index          Run a merge for files needing merging
+   mktag                Creates a tag object
+   mktree               Build a tree-object from ls-tree formatted text
+   multi-pack-index     Write and verify multi-pack-indexes
+   pack-objects         Create a packed archive of objects
+   prune-packed         Remove extra objects that are already in pack files
+   read-tree            Reads tree information into the index
+   symbolic-ref         Read, modify and delete symbolic refs
+   unpack-objects       Unpack objects from a packed archive
+   update-index         Register file contents in the working tree to the index
+   update-ref           Update the object name stored in a ref safely
+   write-tree           Create a tree object from the current index
+
+Low-level Commands / Interrogators
+   cat-file             Provide content or type and size information for repository objects
+   cherry               Find commits yet to be applied to upstream
+   diff-files           Compares files in the working tree and the index
+   diff-index           Compare a tree to the working tree or index
+   diff-tree            Compares the content and mode of blobs found via two tree objects
+   for-each-ref         Output information on each ref
+   for-each-repo        Run a Git command on a list of repositories
+   get-tar-commit-id    Extract commit ID from an archive created using git-archive
+   ls-files             Show information about files in the index and the working tree
+   ls-remote            List references in a remote repository
+   ls-tree              List the contents of a tree object
+   merge-base           Find as good common ancestors as possible for a merge
+   name-rev             Find symbolic names for given revs
+   pack-redundant       Find redundant pack files
+   rev-list             Lists commit objects in reverse chronological order
+   rev-parse            Pick out and massage parameters
+   show-index           Show packed archive index
+   show-ref             List references in a local repository
+   unpack-file          Creates a temporary file with a blob's contents
+   var                  Show a Git logical variable
+   verify-pack          Validate packed Git archive files
+
+Low-level Commands / Syncing Repositories
+   daemon               A really simple server for Git repositories
+   fetch-pack           Receive missing objects from another repository
+   http-backend         Server side implementation of Git over HTTP
+   send-pack            Push objects over Git protocol to another repository
+   update-server-info   Update auxiliary info file to help dumb servers
+
+Low-level Commands / Internal Helpers
+   check-attr           Display gitattributes information
+   check-ignore         Debug gitignore / exclude files
+   check-mailmap        Show canonical names and email addresses of contacts
+   check-ref-format     Ensures that a reference name is well formed
+   column               Display data in columns
+   credential           Retrieve and store user credentials
+   credential-cache     Helper to temporarily store passwords in memory
+   credential-store     Helper to store credentials on disk
+   fmt-merge-msg        Produce a merge commit message
+   interpret-trailers   Add or parse structured information in commit messages
+   mailinfo             Extracts patch and authorship from a single e-mail message
+   mailsplit            Simple UNIX mbox splitter program
+   merge-one-file       The standard helper program to use with git-merge-index
+   patch-id             Compute unique ID for a patch
+   sh-i18n              Git's i18n setup code for shell scripts
+   sh-setup             Common Git shell script setup code
+   stripspace           Remove unnecessary whitespace
+
+External commands
+   askyesno
+   credential-helper-selector
+   flow
+   lfs
+```
+
+> [!NOTE]
+> **Note:** If you find yourself stuck in the list view, press `SHIFT + G` to jump to the end of the list, then `q` to exit the view.
+
+## List Guides and Concepts (`git help -g`)
+
+Shows a list of guides and concept topics for deeper learning:
+
+### Example: List Guides and Concepts
+```bash
+git help -g
+```
+**Output:**
+```text
+The common Git guides are:
+   attributes   Defining attributes per path
+   everyday     Everyday Git With 20 Commands Or So
+   glossary     A Git glossary of terms
+   revisions    Specifying revisions and ranges for Git
+...
+```
+This command is great for learning about Git's advanced concepts and best practices.
+
+## Troubleshooting
+
+* **How do I quit the help viewer?** Press `q` to exit the help page.
+* **Help page won't open?** Try `git <command> -h` for a quick summary instead.
+* **How do I search for a word?** In the help viewer, press `/` then type your search term and press Enter.
+
+### Summary of Commands Used
+
+| Command | Description |
+| :--- | :--- |
+| `git help <command>` | See the full manual page for a specific command (e.g. `git help commit`) |
+| `git <command> --help` | See the full manual page for a command (equivalent to `git help <command>`, e.g. `git status --help`) |
+| `git <command> -h` | See a quick summary of command options right in the terminal window (e.g. `git add -h`) |
+| `git help --all` | List all possible Git commands available on your system |
+| `git help -g` | List guides and concepts (e.g. glossary, revisions) for deeper learning |
+
+---
+
+# Git Branch
+
+## What is a Git Branch?
+
+In Git, a branch is like a separate workspace where you can make changes and try new ideas without affecting the main project. Think of it as a "parallel universe" for your code.
+
+### Why Use Branches?
+Branches let you work on different parts of a project, like new features or bug fixes, without interfering with the main branch.
+
+### Common Reasons to Create a Branch
+* Developing a new feature
+* Fixing a bug
+* Experimenting with ideas
+
+### Example: With and Without Git
+Let's say you have a large project, and you need to update the design on it. How would that work without and with Git:
+
+#### Without Git
+1. Make copies of all the relevant files to avoid impacting the live version.
+2. Start working with the design and find that code depends on code in other files, that also need to be changed!
+3. Make copies of the dependent files as well, making sure that every file dependency references the correct file name.
+4. **EMERGENCY!** There is an unrelated error somewhere else in the project that needs to be fixed ASAP!
+5. Save all your files, making a note of the names of the copies you were working on.
+6. Work on the unrelated error and update the code to fix it.
+7. Go back to the design, and finish the work there.
+8. Copy the code or rename the files, so the updated design is on the live version.
+9. (2 weeks later, you realize that the unrelated error was not fixed in the new design version because you copied the files before the fix).
+
+#### With Git
+1. With a new branch called `new-design`, edit the code directly without impacting the main branch.
+2. **EMERGENCY!** There is an unrelated error somewhere else in the project that needs to be fixed ASAP!
+3. Create a new branch from the main project called `small-error-fix`.
+4. Fix the unrelated error and merge the `small-error-fix` branch with the main branch.
+5. Go back to the `new-design` branch, and finish the work there.
+6. Merge the `new-design` branch with main (getting alerted to the small error fix that you were missing).
+
+* Branches allow you to work on different parts of a project without impacting the main branch.
+* When the work is complete, a branch can be merged with the main project.
+* You can even switch between branches and work on different projects without them interfering with each other.
+* Branching in Git is very lightweight and fast!
+
+## Creating a New Branch
+
+Let's say you want to add a new feature. You can create a new branch for it.
+
+Let's add some new features to our `index.html` page. We are working in our local repository, and we do not want to disturb or possibly wreck the main project. So we create a new branch:
+
+### Example
+```bash
+git branch hello-world-images
+```
+Now we created a new branch called "hello-world-images".
+
+## Listing All Branches
+
+Let's confirm that we have created a new branch. To see all branches in your repository, use:
+
+### Example
+```bash
+git branch
+```
+**Output:**
+```text
+  hello-world-images
+* master
+```
+We can see the new branch with the name `hello-world-images`, but the `*` beside `master` specifies that we are currently on that branch.
+
+## Switching Between Branches
+
+`checkout` is the command used to check out a branch, moving us from the current branch to the one specified at the end of the command:
+
+### Example
+```bash
+git checkout hello-world-images
+```
+**Output:**
+```text
+Switched to branch 'hello-world-images'
+```
+Now you can work in your new branch without affecting the main branch.
+
+## Working in a Branch
+
+Now we have moved our current workspace from the `master` branch to the new branch.
+
+Open your favorite editor and make some changes. For this example, we added an image (`img_hello_world.jpg`) to the working folder and a line of code in the `index.html` file:
+
+### Example
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello World!</title>
+<link rel="stylesheet" href="bluestyle.css">
+</head>
+<body>
+
+<h1>Hello world!</h1>
+<div><img src="img_hello_world.jpg" alt="Hello World from Space" style="width:100%;max-width:960px"></div>
+<p>This is the first file in my new Git Repo.</p>
+<p>A new line in our file!</p>
+
+</body>
+</html>
+```
+
+We have made changes to a file and added a new file in the working directory (same directory as the main branch).
+
+Now check the status of the current branch:
+
+### Example
+```bash
+git status
+```
+**Output:**
+```text
+On branch hello-world-images
+Changes not staged for commit:
+  (use "git add ..." to update what will be committed)
+  (use "git restore ..." to discard changes in working directory)
+        modified:   index.html
+
+Untracked files:
+  (use "git add ..." to include in what will be committed)
+        img_hello_world.jpg
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+So let's go through what happens here:
+1. There are changes to our `index.html`, but the file is not staged for commit.
+2. `img_hello_world.jpg` is not tracked.
+
+So we need to add both files to the Staging Environment for this branch:
+
+### Example
+```bash
+git add --all
+```
+Using `--all` instead of individual filenames will Stage all changed (new, modified, and deleted) files.
+
+Check the status of the branch:
+
+### Example
+```bash
+git status
+```
+**Output:**
+```text
+On branch hello-world-images
+Changes to be committed:
+  (use "git restore --staged ..." to unstage)
+    new file: img_hello_world.jpg
+    modified: index.html
+```
+
+We are happy with our changes. So we will commit them to the branch:
+
+### Example
+```bash
+git commit -m "Added image to Hello World"
+```
+**Output:**
+```text
+[hello-world-images 0312c55] Added image to Hello World
+2 files changed, 1 insertion(+)
+create mode 100644 img_hello_world.jpg
+```
+Now we have a new branch that is different from the `master` branch.
+
+> [!NOTE]
+> **Note:** Using the `-b` option on `checkout` will create a new branch, and move to it, if it does not exist.
+
+## Switching Between Branches
+
+Now let's see just how quick and easy it is to work with different branches, and how well it works.
+
+We are currently on the branch `hello-world-images`. We added an image to this branch, so let's list the files in the current directory:
+
+### Example
+```bash
+ls
+```
+**Output:**
+```text
+README.md  bluestyle.css  img_hello_world.jpg  index.html
+```
+We can see the new file `img_hello_world.jpg`, and if we open the html file, we can see the code has been altered. All is as it should be.
+
+Now, let's see what happens when we change branch to `master`:
+
+### Example
+```bash
+git checkout master
+```
+**Output:**
+```text
+Switched to branch 'master'
+```
+
+The new image is not a part of this branch. List the files in the current directory again:
+
+### Example
+```bash
+ls
+```
+**Output:**
+```text
+README.md  bluestyle.css  index.html
+```
+`img_hello_world.jpg` is no longer there! And if we open the html file, we can see the code reverted to what it was before the alteration.
+
+See how easy it is to work with branches? And how this allows you to work on different things?
+
+## Emergency Branch
+
+Now imagine that we are not yet done with `hello-world-images`, but we need to fix an error on `master`.
+
+I don't want to mess with `master` directly, and I do not want to mess with `hello-world-images`, since it is not done yet.
+
+So we create a new branch to deal with the emergency:
+
+### Example
+```bash
+git checkout -b emergency-fix
+```
+**Output:**
+```text
+Switched to a new branch 'emergency-fix'
+```
+Now we have created a new branch from `master`, and changed to it. We can safely fix the error without disturbing the other branches.
+
+Let's fix our imaginary error:
+
+### Example
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello World!</title>
+<link rel="stylesheet" href="bluestyle.css">
+</head>
+<body>
+
+<h1>Hello world!</h1>
+<p>This is the first file in my new Git Repo.</p>
+<p>This line is here to show how merging works.</p>
+
+</body>
+</html>
+```
+
+We have made changes in this file, and we need to get those changes to the `master` branch.
+
+Check the status:
+
+### Example
+```bash
+git status
+```
+**Output:**
+```text
+On branch emergency-fix
+Changes not staged for commit:
+  (use "git add ..." to update what will be committed)
+  (use "git restore ..." to discard changes in working directory)
+        modified:   index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Stage the file, and commit:
+
+### Example
+```bash
+git add index.html
+git commit -m "updated index.html with emergency fix"
+```
+**Output:**
+```text
+[emergency-fix dfa79db] updated index.html with emergency fix
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+Now we have a fix ready for `master`, and we need to merge the two branches.
+
+## Deleting a Branch
+
+When you're done with a branch, you can delete it:
+
+### Example
+```bash
+git branch -d hello-world-images
+```
+This deletes the branch named `hello-world-images` (if it's already merged).
+
+## Best Practices for Working with Branches
+
+* Use clear, descriptive branch names (like `feature/login-page` or `bugfix/header-crash`).
+* Keep each branch focused on a single purpose or feature.
+* Regularly merge changes from the main branch to keep your branch up-to-date.
+* Delete branches that are no longer needed to keep your repository clean.
+
+## Practical Examples
+
+* **Rename a branch**: `git branch -m old-name new-name`
+* **List all branches**: `git branch`
+* **Switch branches**: `git checkout branch-name` or `git switch branch-name`
+* **Delete a branch (not merged)**: `git branch -D branch-name`
+* **See which branch you're on**: `git status`
+
+## Troubleshooting
+
+* If you don't see your changes on the main branch, remember: changes in one branch stay there until you merge them.
+* When deleting a branch, make sure it's merged first. If you try to delete an unmerged branch, Git will prevent you from doing so.
+* To force delete an unmerged branch, use `git branch -D branch-name`.
+
+### Summary of Commands Used
+
+| Command | Description |
+| :--- | :--- |
+| `git branch <branchname>` | Create a new branch named `<branchname>` |
+| `git branch` | List all local branches in the repository |
+| `git checkout <branchname>` | Switch from the current branch to `<branchname>` |
+| `git checkout -b <branchname>` | Create a new branch named `<branchname>` and switch to it immediately |
+| `git add --all` | Stage all changes (new, modified, and deleted files) in the current branch workspace |
+| `git branch -d <branchname>` | Delete a merged branch named `<branchname>` |
+| `git branch -D <branchname>` | Force delete an unmerged branch named `<branchname>` |
+| `git branch -m <oldname> <newname>` | Rename a branch from `<oldname>` to `<newname>` |
+| `git switch <branchname>` | Switch to branch `<branchname>` (alternative to checkout) |
+| `ls` | List files in the current working directory |
+| `git status` | Check status of the current branch (e.g. see current branch name, staged/unstaged changes) |
+
+---
+
+# Git Branch Merge
+
+## What is Merging in Git?
+
+Merging in Git means combining the changes from one branch into another. This is how you bring your work together after working separately on different features or bug fixes.
+
+### Common `git merge` Options
+* `git merge` - Merge a branch into your current branch
+* `git merge --no-ff` - Always create a merge commit
+* `git merge --squash` - Combine changes into a single commit
+* `git merge --abort` - Abort a merge in progress
+
+## Merging Branches (`git merge`)
+
+To combine the changes from one branch into another, use `git merge`. Usually, you first switch to the branch you want to merge into (often `main` or `master`), then run the merge command with the branch name you want to combine in.
+
+First, we need to change to the `master` branch:
+
+### Example
+```bash
+git checkout master
+```
+**Output:**
+```text
+Switched to branch 'master'
+```
+
+Now we merge the current branch (`master`) with `emergency-fix`:
+
+### Example
+```bash
+git merge emergency-fix
+```
+**Output:**
+```text
+Updating 09f4acd..dfa79db
+Fast-forward
+ index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+Since the `emergency-fix` branch came directly from `master`, and no other changes had been made to `master` while we were working, Git sees this as a continuation of `master`. So it can "Fast-forward", just pointing both `master` and `emergency-fix` to the same commit.
+
+As `master` and `emergency-fix` are essentially the same now, we can delete `emergency-fix`, as it is no longer needed:
+
+### Example
+```bash
+git branch -d emergency-fix
+```
+**Output:**
+```text
+Deleted branch emergency-fix (was dfa79db).
+```
+
+## Non-Fast-Forward Merge (`git merge --no-ff`)
+
+By default, if your branch can be merged with a fast-forward (no new commits on the base), Git just moves the branch pointer forward. If you want to always create a merge commit (to keep history clearer), use `git merge --no-ff branchname`.
+
+### Example
+```bash
+git merge --no-ff feature-branch
+```
+**Output:**
+```text
+Merge made by the 'recursive' strategy.
+ index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+## Squash Merge (`git merge --squash`)
+
+If you want to combine all the changes from a branch into a single commit (instead of keeping every commit), use `git merge --squash branchname`. This is useful for cleaning up commit history before merging.
+
+### Example
+```bash
+git merge --squash feature-branch
+```
+**Output:**
+```text
+Squash commit -- not updating HEAD
+Automatic merge went well; stopped before committing as requested
+```
+
+## Aborting a Merge (`git merge --abort`)
+
+If you run into trouble during a merge (like a conflict you don't want to resolve), you can cancel the merge and go back to how things were before with `git merge --abort`.
+
+### Example
+```bash
+git merge --abort
+```
+
+## What is a Merge Conflict?
+
+A merge conflict happens when changes in two branches touch the same part of a file and Git doesn't know which version to keep. Think of it like two people editing the same sentence in a document in different ways—Git needs your help to decide which version to use.
+
+### How to Resolve a Merge Conflict
+1. Git will mark the conflict in your file.
+2. You need to open the file, look for lines like `<<<<<<< HEAD` and `=======`, and decide what the final version should be.
+3. Then, stage and commit your changes.
+
+## Merge Conflict Example
+
+Now we can move over to `hello-world-images` from the last chapter, and keep working. Add another image file (`img_hello_git.jpg`) and change `index.html` so it shows it:
+
+### Example
+```bash
+git checkout hello-world-images
+```
+**Output:**
+```text
+Switched to branch 'hello-world-images'
+```
+
+### Example: Modify `index.html`
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello World!</title>
+<link rel="stylesheet" href="bluestyle.css">
+</head>
+<body>
+
+<h1>Hello world!</h1>
+<div><img src="img_hello_world.jpg" alt="Hello World from Space" style="width:100%;max-width:960px"></div>
+<p>This is the first file in my new Git Repo.</p>
+<p>A new line in our file!</p>
+<div><img src="img_hello_git.jpg" alt="Hello Git" style="width:100%;max-width:640px"></div>
+
+</body>
+</html>
+```
+
+Now, we are done with our work here and can stage and commit for this branch:
+
+### Example
+```bash
+git add --all
+git commit -m "added new image"
+```
+**Output:**
+```text
+[hello-world-images 1f1584e] added new image
+ 2 files changed, 1 insertion(+)
+ create mode 100644 img_hello_git.jpg
+```
+We see that `index.html` has been changed in both branches. Now we are ready to merge `hello-world-images` into `master`. But what will happen to the changes we recently made in `master`?
+
+### Example
+```bash
+git checkout master
+git merge hello-world-images
+```
+**Output:**
+```text
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+```
+The merge failed, as there is conflict between the versions for `index.html`. Let us check the status:
+
+### Example
+```bash
+git status
+```
+**Output:**
+```text
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+        new file:   img_hello_git.jpg
+        new file:   img_hello_world.jpg
+
+Unmerged paths:
+  (use "git add ..." to mark resolution)
+        both modified:   index.html
+```
+This confirms there is a conflict in `index.html`, but the image files are ready and staged to be committed. So we need to fix that conflict. Open the file in our editor:
+
+### Example: Conflicted `index.html`
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello World!</title>
+<link rel="stylesheet" href="bluestyle.css">
+</head>
+<body>
+
+<h1>Hello world!</h1>
+<div><img src="img_hello_world.jpg" alt="Hello World from Space" style="width:100%;max-width:960px"></div>
+<p>This is the first file in my new Git Repo.</p>
+<<<<<<< HEAD
+<p>This line is here to show how merging works.</p>
+=======
+<p>A new line in our file!</p>
+<div><img src="img_hello_git.jpg" alt="Hello Git" style="width:100%;max-width:640px"></div>
+>>>>>>> hello-world-images
+
+</body>
+</html>
+```
+
+We can see the differences between the versions and edit it like we want:
+
+### Example: Resolved `index.html`
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello World!</title>
+<link rel="stylesheet" href="bluestyle.css">
+</head>
+<body>
+
+<h1>Hello world!</h1>
+<div><img src="img_hello_world.jpg" alt="Hello World from Space" style="width:100%;max-width:960px"></div>
+<p>This is the first file in my new Git Repo.</p>
+<p>This line is here to show how merging works.</p>
+<div><img src="img_hello_git.jpg" alt="Hello Git" style="width:100%;max-width:640px"></div>
+
+</body>
+</html>
+```
+
+Now we can stage `index.html` and check the status:
+
+### Example
+```bash
+git add index.html
+git status
+```
+**Output:**
+```text
+On branch master
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        new file:   img_hello_git.jpg
+        new file:   img_hello_world.jpg
+        modified:   index.html
+```
+The conflict has been fixed, and we can use commit to conclude the merge:
+
+### Example
+```bash
+git commit -m "merged with hello-world-images after fixing conflicts"
+```
+**Output:**
+```text
+[master e0b6038] merged with hello-world-images after fixing conflicts
+```
+
+And delete the `hello-world-images` branch:
+
+### Example
+```bash
+git branch -d hello-world-images
+```
+**Output:**
+```text
+Deleted branch hello-world-images (was 1f1584e).
+```
+
+Now you have a better understanding of how branches and merging works. Time to start working with a remote repository!
+
+## Best Practices for Merging Branches
+
+* Always commit or stash your changes before starting a merge.
+* Regularly merge from the main branch into your feature branch to minimize conflicts.
+* Read and resolve conflicts carefully—don't just accept all changes blindly.
+* Write clear and descriptive merge commit messages.
+
+## Practical Examples
+
+* **Abort a merge**: `git merge --abort`
+* **Check status during a merge**: `git status`
+* **Resolve a conflict and complete the merge**: Edit the conflicted file(s), then `git add <file>` and `git commit`
+* **Fast-forward merge**: Happens when no new commits diverged—Git just moves the branch pointer forward.
+* **No-fast-forward merge**: Use `git merge --no-ff <branch>` to always create a merge commit, preserving branch history.
+
+## Troubleshooting & Tips
+
+* If you want to cancel a merge, use `git merge --abort`.
+* Always commit or stash your changes before starting a merge.
+* Read the conflict markers carefully and remove them after you've resolved the issue.
+* Use `git status` to see what files need your attention.
+* If you're unsure, ask a teammate or look up the error message.
+
+### Summary of Commands Used
+
+| Command | Description |
+| :--- | :--- |
+| `git merge <branchname>` | Merge changes from `<branchname>` into the current branch |
+| `git merge --no-ff <branchname>` | Merge `<branchname>` into the current branch and always create a merge commit |
+| `git merge --squash <branchname>` | Combine all changes from `<branchname>` into a single commit to merge |
+| `git merge --abort` | Cancel the merge in progress and revert to the pre-merge state |
+| `git checkout <branchname>` | Switch to branch `<branchname>` (e.g. `git checkout master`) |
+| `git branch -d <branchname>` | Delete a merged branch (e.g. `git branch -d emergency-fix`) |
+| `git status` | Check current staging status and identify merge conflict locations |
+| `git add <file>` | Stage a resolved file to mark the conflict as resolved (e.g. `git add index.html`) |
+| `git commit` | Conclude the merge and save changes with a merge commit |
+
+---
+
+# Git Workflow
+
+## Git Workflow Commands Overview
+
+* **Working Directory**: Where you make changes
+* `git add` - Stage changes
+* `git commit` - Save changes to your repository
+* `git push` - Share changes with others
+* `git status` - Check what's going on
+* **Undo/Amend** - Fix mistakes (`git restore`, `git reset`, `git commit --amend`)
+
+> [!NOTE]
+> **See Also:** GitHub Flow is a popular collaborative workflow for teams using GitHub. If you work with GitLab or Bitbucket, those platforms have their own workflows too.
+
+## Understanding the Git Workflow
+
+Git uses a distributed workflow that allows you to work on your code, stage changes, and commit them to your local repository before sharing with others. Understanding this workflow is essential for effective version control.
+
+### The Three Areas of Git
+* **Working Directory**: Where you make changes to your files.
+* **Staging Area (Index)**: Where you prepare changes before committing.
+* **Repository**: Where your committed history is stored.
+
+### Workflow Diagram
+```text
+[Working Directory] --git add--> [Staging Area] --git commit--> [Repository]
+```
+
+## Working Directory
+
+This is where you make changes to your files. Think of it as your workspace or desk. Files here can be new, modified, or deleted, but Git won't save these changes until you stage and commit them.
+
+## Staging Changes (`git add`)
+
+When you are happy with your changes, you "stage" them with `git add`. This puts your changes in the Staging Area, like putting your finished letter in an envelope.
+
+### Example
+```bash
+git add index.html
+```
+
+To stage all changes (new, modified, and deleted files):
+```bash
+git add .
+```
+
+## Committing Changes (`git commit`)
+
+Committing saves your staged changes to your local repository. It's like mailing your letter—you can't change it after it's sent!
+
+### Example
+```bash
+git commit -m "Describe your changes"
+```
+You can also use `git commit -a -m "message"` to stage and commit all modified and deleted files in one step (but not new files).
+
+## Pushing Changes (`git push`)
+
+After you commit, your changes are only in your local repository. Use `git push` to send your commits to a remote repository (like GitHub or Bitbucket) so others can see them.
+
+### Example
+```bash
+git push
+```
+
+## Checking Status (`git status`)
+
+Use `git status` to see which files are staged, unstaged, or untracked. This helps you keep track of what you still need to add or commit.
+
+### Example
+```bash
+git status
+```
+
+## Undoing and Amending Changes
+
+Made a mistake? Git lets you fix things before you push!
+* `git restore <file>` - Undo changes in your working directory (before staging).
+* `git restore --staged <file>` - Unstage a file (move it out of the Staging Area).
+* `git reset HEAD~` - Undo your last commit (keeps changes in your working directory).
+* `git commit --amend` - Change the last commit message or add files to your last commit.
+
+### Example: Unstage a file
+```bash
+git restore --staged index.html
+```
+
+## Best Practices for Git Workflow
+
+* Commit frequently with clear, meaningful messages.
+* Check your status often with `git status` to avoid surprises.
+* Stage only what you intend to commit. Use `git add <file>` for precision.
+* Push regularly to back up your work and share with others.
+* Review your changes with `git diff` before committing.
+
+## Tips & Troubleshooting
+
+* Use `git status` often to see what's going on.
+* If you commit the wrong thing, use `git reset` or `git commit --amend` before pushing.
+* Stage only what you want to commit—use `git add <filename>` for specific files.
+* Don't forget to push after committing, or your changes won't show up for others.
+* If you're not sure, ask for help or look up the error message—everyone makes mistakes!
+
+### Summary of Commands Used
+
+| Command | Description |
+| :--- | :--- |
+| `git add <file>` | Stage a specific file for the next commit (e.g. `git add index.html`) |
+| `git add .` | Stage all changes (new, modified, and deleted files) in the current directory |
+| `git commit -m "message"` | Save staged changes to the repository with a descriptive message |
+| `git commit -a -m "message"` | Stage and commit all modified and deleted files in one step |
+| `git push` | Send commits from the local repository to a remote repository |
+| `git status` | Show the status of files in the working directory and staging area |
+| `git restore <file>` | Undo changes in the working directory (discard local modifications before staging) |
+| `git restore --staged <file>` | Remove a file from the staging area (unstage it) |
+| `git reset HEAD~` | Undo the last local commit, keeping the changes in the working directory |
+| `git commit --amend` | Change the last commit message or add new staged changes to it |
